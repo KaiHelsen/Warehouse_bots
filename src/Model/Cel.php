@@ -9,13 +9,16 @@ class Cel
     private Coordinate $coordinate;
     private string $ingredient;
     private bool $occupied;
+    private bool $isEdge;
 
-    public function __construct(int $x, int $y, string$ingredient, bool $robot = false)
+    public function __construct(int $x, int $y, string$ingredient,  bool $isEdge, bool $robot = false)
     {
         $this->coordinate = new Coordinate($x, $y);
         $this->ingredient = $ingredient;
+        $this->isEdge = $isEdge;
         $this->occupied = $robot;
     }
+
 
     /**
      * @return Coordinate
@@ -56,11 +59,19 @@ class Cel
     {
         return $this->occupied;
     }
+
     /**
      * @param bool $occupied
      */
     public function setOccupied(bool $occupied): void
     {
         $this->occupied = $occupied;
+    }
+    /**
+     * @return bool
+     */
+    public function isEdge(): bool
+    {
+        return $this->isEdge;
     }
 }
