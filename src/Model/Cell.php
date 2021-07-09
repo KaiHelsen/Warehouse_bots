@@ -4,14 +4,14 @@
 namespace App\Model;
 
 
-class Cel
+class Cell
 {
-    private Coordinate $coordinate;
+    private coordinate $coordinate;
     private string $ingredient;
     private bool $occupied;
     private bool $isEdge;
 
-    public function __construct(int $x, int $y, string$ingredient,  bool $isEdge, bool $robot = false)
+    public function __construct(int $x, int $y, string $ingredient,  bool $isEdge, bool $robot = false)
     {
         $this->coordinate = new Coordinate($x, $y);
         $this->ingredient = $ingredient;
@@ -19,19 +19,30 @@ class Cel
         $this->occupied = $robot;
     }
 
+    public static function fromArray(array $decodedJson): Cell
+    {
+        if($decodedJson['ingredient'] === null)
+        {
+            return new Cell($decodedJson['x'], $decodedJson['y'], "", (bool)$decodedJson['robot']);
+        }
+
+        $isEdge = ($decodedJson['x'] == 0   || $decodedJson['y'] == 0|| $decodedJson['x'] == 30|| $decodedJson['y'] == 30);
+        return new Cell($decodedJson['x'], $decodedJson['y'], $decodedJson['ingredient']['name'], $isEdge, (bool)$decodedJson['robot']);
+    }
+
 
     /**
-     * @return Coordinate
+     * @return coordinate
      */
-    public function getCoordinate(): Coordinate
+    public function getCoordinate(): coordinate
     {
         return $this->coordinate;
     }
 
     /**
-     * @param Coordinate $coordinate
+     * @param coordinate $coordinate
      */
-    public function setCoordinate(Coordinate $coordinate): void
+    public function setCoordinate(coordinate $coordinate): void
     {
         $this->coordinate = $coordinate;
     }

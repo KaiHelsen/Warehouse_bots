@@ -4,7 +4,7 @@
 namespace App\Model;
 
 
-class coordinate
+class Coordinate
 {
     /**
      * @return int
